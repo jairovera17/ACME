@@ -1,2 +1,5 @@
 .vscode/
 __pycache__/
+ioet_test_verajairo.pyc
+*.pyc
+.DS_Store
