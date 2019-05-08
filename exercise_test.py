@@ -8,11 +8,11 @@ class ExerciseTest(unittest.TestCase):
 
     
     def test_period_worked_morning(self):
-        self.assertEqual(get_shift_schedule('MO',3600),'morning')
+        self.assertEqual(calculate_shift_schedule('MO',3600),'morning')
     def test_period_worked_night(self):
-        self.assertEqual(get_shift_schedule('MO',22*3600),'night')
+        self.assertEqual(calculate_shift_schedule('MO',22*3600),'night')
     def test_period_worked__weekend_morning(self):
-        self.assertEqual(get_shift_schedule('SA',9*3600),('weekend','morning'))
+        self.assertEqual(calculate_shift_schedule('SA',9*3600),('weekend','morning'))
 
     def test_single_period_worked(self): 
         test_time = datetime.strptime('5:00',time_format) - zero_time
@@ -25,7 +25,7 @@ class ExerciseTest(unittest.TestCase):
         self.assertEqual(multiple_schedules_worked_pay(7*3600,'morning',20*3600,'night'),2*hour_pay['morning']+9*hour_pay['noon']+2*hour_pay['night'])
 
     def test_shift_pay(self):
-        self.assertEqual(get_worked_day_pay('MO5:00-8:00'),3*hour_pay['morning'])
+        self.assertEqual(get_day_payment('MO5:00-8:00'),3*hour_pay['morning'])
 
     def test_employee_balance_all_day_shift(self):
         employee_jairo = 'JAIRO=MO10:00-20:00'
