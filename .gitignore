@@ -3,3 +3,4 @@ __pycache__/
 ioet_test_verajairo.pyc
 *.pyc
 .DS_Store
+experiment.py

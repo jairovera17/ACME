@@ -1,16 +1,13 @@
 from datetime import datetime
 
-weekends = ['SA', 'SU']
-noon_periods = ['noon', ('weekend', 'noon')]
-# un solo payment
 
 hour_cost_dicc = {
     'morning': 25,
     'noon': 15,
     'night': 20,
-    ('weekend', 'morning'): 30,
-    ('weekend', 'noon'): 20,
-    ('weekend', 'night'): 25
+    'weekend_morning': 30,
+    'weekend_noon': 20,
+    'weekend_night': 25
 }
 
 t_format = '%H:%M'
@@ -20,16 +17,11 @@ opening_schedule_hour = {
     'morning': '00:00',
     'noon': '09:00',
     'night': '18:00',
-    ('weekend', 'noon'): '09:00',
-    ('weekend', 'night'): '18:00'
 }
 closing_schedule_hour = {
     'morning': '09:00',
     'noon': '18:00',
     'night': '23:59',
-    ('weekend', 'morning'): '09:00',
-    ('weekend', 'noon'): '18:00',
-    ('weekend', 'night'): '00:00',
 }
 
 
@@ -51,7 +43,6 @@ class WorkDay:
         else:
             init_time = shift.opening_hours
             end_time = shift.time
-
         return self.get_hours_payment(init_time, end_time, hour_cost)
 
     def calculate_total_payment(self):
@@ -59,7 +50,6 @@ class WorkDay:
             init_time = self.init_shift.time
             end_time = self.end_shift.time
             hour_cost = self.init_shift.hour_cost
-
             return self.get_hours_payment(init_time, end_time, hour_cost)
 
         else:
@@ -67,16 +57,20 @@ class WorkDay:
             init_shift_payment = self.calculate_shift_payment(self.init_shift)
             end_shift_payment = self.calculate_shift_payment(self.end_shift)
             payment = init_shift_payment + end_shift_payment
-
             if self.init_shift.schedule == 'morning' and self.end_shift.schedule == 'night':
-
                 middle_shift = ShiftTime(self.init_shift.day, closing_schedule_hour['noon'], False)
                 payment = payment + middle_shift
-                
             return payment
 
-          
+
 class ShiftTime:
+
+    def __init__(self, day, time, isFirstShiftWorked):
+        self.day = day
+        self.time = self.format_time(time)
+        self.isFirstShiftWorked = isFirstShiftWorked
+        self.schedule = self.set_schedule(day, time)
+        self.hour_cost = hour_cost_dicc[self.schedule]
 
     def format_time(self, time_str):
         t_format = '%H:%M'
@@ -84,28 +78,14 @@ class ShiftTime:
         output = datetime.strptime(time_str, t_format) - zero_time
         return output
 
-    def set_schedule(self, day, seconds):
-        if 60 < seconds <= 9*3600:
-            if day in weekends:
-                return ('weekend', 'morning')
-            return 'morning'
-
-        elif 9*3600 + 60 < seconds <= 18*3600:
-            if day in weekends:
-                return ('weekend', 'noon')
-            return 'noon'
-
-        elif 18 * 3600 + 60 < seconds or (seconds < 60):
-            if day in weekends:
-                return ('weekend', 'night')
-            return 'night'
-
-    def __init__(self, day, time, isFirstShiftWorked):
-        self.day = day
-        self.time = self.format_time(time)
-        self.isFirstShiftWorked = isFirstShiftWorked
-        self.schedule = self.set_schedule(day, self.time.seconds)
-        self.opening_hours = self.format_time(opening_schedule_hour[self.schedule])
-        self.closing_hours = self.format_time(closing_schedule_hour[self.schedule])
-        self.hour_cost = hour_cost_dicc[self.schedule]
-        
+    def set_schedule(self, day, time):
+        weekends = ['SA', 'SU']
+        schedules = ['morning', 'noon', 'night']
+        for schedule in schedules:
+            if opening_schedule_hour[schedule] < time < closing_schedule_hour[schedule]:
+                self.opening_hours = opening_schedule_hour[schedule]
+                self.closing_hours = closing_schedule_hour[schedule]
+                if day in weekends:
+                    return 'weekend_'+schedule
+                else:
+                    return schedule
