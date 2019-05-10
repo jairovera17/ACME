@@ -39,9 +39,9 @@ class WorkDay:
         hour_cost = shift.hour_cost
         if shift.isFirstShiftWorked:
             init_time = shift.time
-            end_time = shift.clousing_hours
+            end_time = shift.format_time(shift.closing_hours)
         else:
-            init_time = shift.opening_hours
+            init_time = shift.format_time(shift.opening_hours)
             end_time = shift.time
         return self.get_hours_payment(init_time, end_time, hour_cost)
 
@@ -59,6 +59,7 @@ class WorkDay:
             payment = init_shift_payment + end_shift_payment
             if self.init_shift.schedule == 'morning' and self.end_shift.schedule == 'night':
                 middle_shift = ShiftTime(self.init_shift.day, closing_schedule_hour['noon'], False)
+                print(vars(middle_shift))
                 payment = payment + middle_shift
             return payment
 
@@ -85,6 +86,7 @@ class ShiftTime:
             if opening_schedule_hour[schedule] < time < closing_schedule_hour[schedule]:
                 self.opening_hours = opening_schedule_hour[schedule]
                 self.closing_hours = closing_schedule_hour[schedule]
+                print(schedule)
                 if day in weekends:
                     return 'weekend_'+schedule
                 else:
