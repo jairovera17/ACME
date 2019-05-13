@@ -12,6 +12,6 @@ from WorkDay import WorkDay
 
     ]
 )  
-def test_hours_payment(day,init_time, end_time, expected):
+def test_work_day_total_payment(day,init_time, end_time, expected):
     work_day = WorkDay(day, init_time, end_time,)
     assert work_day.calculate_total_payment() == expected
