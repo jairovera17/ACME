@@ -10,8 +10,6 @@ hour_cost_dicc = {
     'weekend_night': 25
 }
 
-t_format = '%H:%M'
-zero_time = datetime.strptime('00:00', t_format)
 
 opening_schedule_hour = {
     'morning': '00:00',
@@ -82,7 +80,7 @@ class ShiftTime:
         weekends = ['SA', 'SU']
         schedules = ['morning', 'noon', 'night']
         for schedule in schedules:
-            if opening_schedule_hour[schedule] < time < closing_schedule_hour[schedule]:
+            if opening_schedule_hour[schedule] <= time <= closing_schedule_hour[schedule]:
                 self.opening_hours = opening_schedule_hour[schedule]
                 self.closing_hours = closing_schedule_hour[schedule]
                 if day in weekends:
