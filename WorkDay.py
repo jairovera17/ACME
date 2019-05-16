@@ -57,7 +57,7 @@ class WorkDay:
             payment = init_shift_payment + end_shift_payment
             if self.init_shift.schedule == 'morning' and self.end_shift.schedule == 'night':
                 middle_shift = ShiftTime(self.init_shift.day, closing_schedule_hour['noon'], False)
-                payment = payment + middle_shift
+                payment = payment + self.calculate_shift_payment(middle_shift)
             return payment
 
 

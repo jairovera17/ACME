@@ -6,3 +6,4 @@ ioet_test_verajairo.pyc
 experiment.py
 .idea
 .coverage
+coverage.xml
