@@ -8,4 +8,10 @@ install:
   - pip install pytest-cov
 # command to run tests
 script:
-  - pytest --cov=./ 
+  - pytest --cov=./  --cov-report=xml
+
+env:
+  - CODECOV_TOKEN=2f38ffc9-36aa-445c-a758-475922c2539e
+
+after_success:
+  - codecov
