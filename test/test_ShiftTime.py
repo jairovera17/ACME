@@ -1,5 +1,5 @@
 import pytest
-from WorkDay import ShiftTime
+from ShiftTime import ShiftTime
 from datetime import datetime
 
 
