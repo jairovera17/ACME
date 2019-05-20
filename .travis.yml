@@ -6,12 +6,16 @@ python:
 install:
   - pip install pytest
   - pip install pytest-cov
+  - pip install pytest-xdist
+  - pip install coverage
+  - pip install codecov
 # command to run tests
 script:
-  - pytest --cov=./  --cov-report=xml
-
+  - python src/setup.py build
+  - pytest --cov=src/
+  - codecov --token 2f38ffc9-36aa-445c-a758-475922c2539e
 env:
   - CODECOV_TOKEN=2f38ffc9-36aa-445c-a758-475922c2539e
-
 after_success:
   - codecov
+
