@@ -2,7 +2,6 @@ import sys
 from src.workday import WorkDay
 from src.utils import check_input
 
-
 def get_day_payment(worked_day):
     day_name = worked_day[0:2]
     worked_time = worked_day[2:].split('-')

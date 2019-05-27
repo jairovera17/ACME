@@ -1,5 +1,5 @@
 import pytest
-from src import main
+from src.main import *
 
 
 @pytest.mark.parametrize(
@@ -11,7 +11,7 @@ from src import main
 
 )
 def test_employee_balance(input,expected):
-    balance = main.get_employee_balance(input)
+    balance = get_employee_balance(input)
     assert balance == expected
 
 @pytest.mark.parametrize(
@@ -22,7 +22,10 @@ def test_employee_balance(input,expected):
     ]
 
 )
-def test_employee_balance(worked_day,expected):
-    day_payment = main.get_day_payment(worked_day)
+def test_day_payment(worked_day, expected):
+    day_payment = get_day_payment(worked_day)
     assert day_payment == expected
+
+
+
 

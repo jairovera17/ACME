@@ -11,7 +11,7 @@ install:
   - pip install codecov
 # command to run tests
 script:
-  - python src/setup.py build
+  - python setup.py build
   - pytest --cov=src/
   - codecov --token 2f38ffc9-36aa-445c-a758-475922c2539e
 env:
