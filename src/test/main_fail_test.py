@@ -1,5 +1,5 @@
 import pytest
-from src.utils import *
+from utils import *
 
 
 @pytest.mark.xfail(raises=Exception)

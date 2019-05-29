@@ -1,6 +1,6 @@
 import sys
-from src.workday import WorkDay
-from src.utils import check_input
+from workday import WorkDay
+from utils import check_input
 
 def get_day_payment(worked_day):
     day_name = worked_day[0:2]

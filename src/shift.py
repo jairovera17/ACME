@@ -1,6 +1,6 @@
-from src.workinghours_constants import schedules
-from src.workinghours_constants import opening_schedule_hour, closing_schedule_hour
-from src.utils import format_time
+from workinghours_constants import schedules
+from workinghours_constants import opening_schedule_hour, closing_schedule_hour
+from utils import format_time
 
 class Shift:
 

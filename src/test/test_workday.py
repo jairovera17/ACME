@@ -1,5 +1,5 @@
 import pytest
-from src.workday import WorkDay
+from workday import WorkDay
 
 
 @pytest.mark.parametrize(

@@ -1,9 +1,9 @@
-from src.workinghours_constants import regular_hour_cost, special_hour_cost
-from src.workinghours_constants import weekends
-from src.workinghours_constants import schedules
-from src.workinghours_constants import opening_schedule_hour, closing_schedule_hour
-from src.shift import Shift
-from src.utils import format_time
+from workinghours_constants import regular_hour_cost, special_hour_cost
+from workinghours_constants import weekends
+from workinghours_constants import schedules
+from workinghours_constants import opening_schedule_hour, closing_schedule_hour
+from shift import Shift
+from utils import format_time
 
 
 class WorkDay:

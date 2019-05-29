@@ -1,7 +1,7 @@
 import pytest
-from src.shift import ScheduleTime
-from src.shift import Shift
-from src.utils import format_time
+from shift import ScheduleTime
+from shift import Shift
+from utils import format_time
 
 @pytest.mark.parametrize(
     "time, expected",
